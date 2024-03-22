@@ -36,7 +36,13 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const globalService_1 = require("./services/globalService");
 dotenv.config();
+/**
+ * @type {Express}
+ */
 const app = (0, express_1.default)();
+/**
+ * @type {number}
+ */
 const PORT = process.env.PORT || 5000;
 app.use((0, cors_1.default)());
 app.listen(PORT, () => {
@@ -76,6 +82,29 @@ app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, 
         }
     }
     else if (integration === 'jira') {
+        switch (entity) {
+            case 'issues':
+                const issues = yield (0, globalService_1.getJiraIssues)();
+                if (issues !== null || issues !== undefined) {
+                    res.status(200);
+                    console.log(issues);
+                    res.json(issues);
+                }
+                else {
+                    res.send(`Cannot fetch data for ${entity}`);
+                }
+                break;
+            case 'projects':
+                const projects = yield (0, globalService_1.getJiraProjects)();
+                if (projects !== null || projects !== undefined) {
+                    res.status(200);
+                    res.json(projects);
+                }
+                else {
+                    res.send(`Cannot fetch data for ${entity}`);
+                }
+                break;
+        }
     }
     else {
         res.send(`${integration === null || integration === void 0 ? void 0 : integration.toUpperCase()} - This integration is not supported at the moment.`);

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GithubRepoInfo = void 0;
 class GithubRepoInfo {
     /**
-     *
+     * @constructor
      * @param id {string} - Represents the id of the repository
      * @param name {string} - Represents the name of the repository
      * @param url {string} - Represents the url of the repository

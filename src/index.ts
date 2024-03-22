@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-import { getGithubRepositories, getStarredRepositories } from './services/globalService';
+import { getGithubRepositories, getJiraIssues, getJiraProjects, getStarredRepositories } from './services/globalService';
 
 dotenv.config()
 
@@ -59,7 +59,27 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
         }
     }
     else if (integration === 'jira') {
-
+        switch (entity) {
+            case 'issues':
+                const issues = await getJiraIssues();
+                if (issues !== null || issues !== undefined) {
+                    res.status(200)
+                    console.log(issues)
+                    res.json(issues)
+                } else {
+                    res.send(`Cannot fetch data for ${entity}`)
+                }
+                break;
+            case 'projects':
+                const projects = await getJiraProjects();
+                if (projects !== null || projects !== undefined) {
+                    res.status(200)
+                    res.json(projects)
+                } else {
+                    res.send(`Cannot fetch data for ${entity}`)
+                }
+                break;
+        }
     }
     else {
         res.send(`${integration?.toUpperCase()} - This integration is not supported at the moment.`)

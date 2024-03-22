@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GithubStarredRepo = void 0;
 class GithubStarredRepo {
     /**
-     *
+     * @constructor
      * @param id {string} The id of the repository
      * @param owner {string} The owner of the repository
      * @param name {string} The name of the repository

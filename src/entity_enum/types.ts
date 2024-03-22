@@ -3,6 +3,7 @@
 export enum Types {
     GithubRepoInfo,
     GithubStarredRepo,
-    JiraProject
+    JiraProject,
+    JiraIssue,
 }
 
