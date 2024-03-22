@@ -35,7 +35,13 @@ const GithubRepositoryInfoModel_1 = require("../models/GithubRepositoryInfoModel
 const GithubStarredRepoModel_1 = require("../models/GithubStarredRepoModel");
 const types_1 = require("../entity_enum/types");
 dotenv.config();
+/**
+ * @type {string}
+ */
 const SECRET_KEY = process.env.SECRET_KEY;
+/**
+ * @type {Nango}
+ */
 const nango = new node_1.Nango({ secretKey: SECRET_KEY });
 const INTEGRATION_ID = process.env.INTEGRATION_ID;
 const CONNECTION_ID = process.env.CONNECTION_ID;

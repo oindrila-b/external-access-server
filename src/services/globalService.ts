@@ -7,13 +7,30 @@ import { Types } from '../entity_enum/types';
 dotenv.config()
 
 
-const SECRET_KEY=process.env.SECRET_KEY
-const nango = new Nango({ secretKey: SECRET_KEY as string});
+/**
+ * @type {string}
+ */
+const SECRET_KEY:string =process.env.SECRET_KEY as string;
 
-const INTEGRATION_ID = process.env.INTEGRATION_ID as string;
-const CONNECTION_ID = process.env.CONNECTION_ID as string;
+/**
+ * @type {Nango}
+ */
+const nango:Nango = new Nango({ secretKey: SECRET_KEY});
+
+/**
+ * @type {string}
+ */
+const INTEGRATION_ID:string = process.env.INTEGRATION_ID as string;
+/**
+ * @type {string}
+ */
+const CONNECTION_ID:string = process.env.CONNECTION_ID as string;
 
 
+/**
+ * Function to fetch all the repositories belonging to the authenticated user
+ * @returns Promise<GithubRepoInfo[]> 
+ */
 export async function getGithubRepositories(): Promise<GithubRepoInfo[]>  {
 
     let repoInfo : GithubRepoInfo[] = [];
@@ -32,6 +49,10 @@ export async function getGithubRepositories(): Promise<GithubRepoInfo[]>  {
     
 }
 
+/**
+ * Function to fetch all the repositories the authenticated user has starred
+ * @returns Promise<GithubStarredRepo[]> 
+ */
 export async function getStarredRepositories() : Promise<GithubStarredRepo[]> {
 
     let starredRepos : GithubStarredRepo[] = [];
@@ -51,6 +72,12 @@ export async function getStarredRepositories() : Promise<GithubStarredRepo[]> {
 }
 
 
+/**
+ * 
+ * @param parsedResponse {any} - Response from the fetched data in json object format
+ * @param repositoriesArray {any[]} - Array of Type which will be populated
+ * @param types {Types} - Enum that determines which class' objects will be created 
+ */
 
 function populateGithubData(parsedResponse:any, repositoriesArray:any[], types: Types) {
     parsedResponse.repos.forEach((repo: any) => {

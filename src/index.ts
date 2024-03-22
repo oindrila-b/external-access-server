@@ -5,7 +5,14 @@ import { getGithubRepositories, getStarredRepositories } from './services/global
 
 dotenv.config()
 
+/**
+ * @type {Express}
+ */
 const app = express();
+
+/**
+ * @type {number}
+ */
 const PORT = process.env.PORT || 5000
 
 app.use(cors());
@@ -21,6 +28,7 @@ app.get('/', async (req, res) => {
     res.send("EXTERNAL SERVER ACCESS")
 
 })
+
 
 app.get('/list/:integration?/:entity?', async (req, res) => {
     console.log("HELLO")

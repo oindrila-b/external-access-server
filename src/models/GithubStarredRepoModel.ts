@@ -1,9 +1,20 @@
+/***
+ * This class defines the structure for holding Information about a Github Repository that has been Starred by the user
+ */
+
 export class GithubStarredRepo {
     private _id: string;
     private _owner: string;
     private _name: string;
     private _url: string;
      
+    /**
+     * @constructor
+     * @param id {string} The id of the repository
+     * @param owner {string} The owner of the repository
+     * @param name {string} The name of the repository
+     * @param url {string} The url of the repository
+     */
      constructor(id: string, owner: string, name: string, url: string) {
          this._id = id;
          this._owner = owner;
@@ -11,8 +22,23 @@ export class GithubStarredRepo {
          this._url = url;
      }
  
+     /**
+     * Returns the id of the repository
+     */
      get id() { return this._id; }
+
+     /**
+     * Returns the name of the repository
+     */
      get name() { return this._name; }
+
+     /**
+     * Returns the url of the repository
+     */
      get url() { return this._url; }
+
+     /**
+     * Returns the owner of the repository
+     */
      get owner() { return this._owner; }
  }

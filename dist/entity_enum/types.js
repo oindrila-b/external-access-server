@@ -1,4 +1,5 @@
 "use strict";
+/** @enum {class} */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Types = void 0;
 var Types;
