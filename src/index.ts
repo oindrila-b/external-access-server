@@ -26,7 +26,6 @@ app.listen(PORT, () => {
 app.get('/', async (req, res) => {
     res.status(200)
     res.send("EXTERNAL SERVER ACCESS")
-
 })
 
 
