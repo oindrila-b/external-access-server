@@ -18,15 +18,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getJiraProjects = exports.getJiraIssues = exports.getStarredRepositories = exports.getGithubRepositories = void 0;
 const node_1 = require("@nangohq/node");
@@ -65,54 +56,54 @@ const CONNECTION_ID_JIRA = process.env.CONNECTION_ID_JIRA;
  * Function to fetch all the repositories belonging to the authenticated user
  * @returns Promise<GithubRepoInfo[]>
  */
-function getGithubRepositories() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let repoInfo = [];
-        const response = yield nango.triggerAction(INTEGRATION_ID_GITHUB, CONNECTION_ID_GITHUB, 'github-fetch-repos');
-        const parsedResponse = JSON.parse(JSON.stringify(response));
-        populateGithubData(parsedResponse, repoInfo, types_1.Types.GithubRepoInfo);
-        console.log(repoInfo);
-        return repoInfo;
-    });
+async function getGithubRepositories() {
+    let repoInfo = [];
+    const response = await nango.triggerAction(INTEGRATION_ID_GITHUB, CONNECTION_ID_GITHUB, 'github-fetch-repos');
+    const parsedResponse = JSON.parse(JSON.stringify(response));
+    populateGithubData(parsedResponse, repoInfo, types_1.Types.GithubRepoInfo);
+    console.log(repoInfo);
+    return repoInfo;
 }
 exports.getGithubRepositories = getGithubRepositories;
 /**
  * Function to fetch all the repositories the authenticated user has starred
  * @returns Promise<GithubStarredRepo[]>
  */
-function getStarredRepositories() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let starredRepos = [];
-        const response = yield nango.triggerAction(INTEGRATION_ID_GITHUB, CONNECTION_ID_GITHUB, 'github-fetch-starred');
-        const parsedResponse = JSON.parse(JSON.stringify(response));
-        populateGithubData(parsedResponse, starredRepos, types_1.Types.GithubStarredRepo);
-        console.log(starredRepos);
-        return starredRepos;
-    });
+async function getStarredRepositories() {
+    let starredRepos = [];
+    const response = await nango.triggerAction(INTEGRATION_ID_GITHUB, CONNECTION_ID_GITHUB, 'github-fetch-starred');
+    const parsedResponse = JSON.parse(JSON.stringify(response));
+    populateGithubData(parsedResponse, starredRepos, types_1.Types.GithubStarredRepo);
+    console.log(starredRepos);
+    return starredRepos;
 }
 exports.getStarredRepositories = getStarredRepositories;
-function getJiraIssues() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let jiraIssues = [];
-        const response = yield nango.triggerAction(INTEGRATION_ID_JIRA, CONNECTION_ID_JIRA, 'jira-fetch-issues');
-        const parsedResponse = JSON.parse(JSON.stringify(response));
-        console.log(parsedResponse);
-        populateJiraData(parsedResponse.issueArray, jiraIssues, types_1.Types.JiraIssue);
-        console.log(jiraIssues);
-        return jiraIssues;
-    });
+/**
+ * Function to fetch all the issues the authenticated user has
+ * @returns JiraIssues[]
+ */
+async function getJiraIssues() {
+    let jiraIssues = [];
+    const response = await nango.triggerAction(INTEGRATION_ID_JIRA, CONNECTION_ID_JIRA, 'jira-fetch-issues');
+    const parsedResponse = JSON.parse(JSON.stringify(response));
+    console.log(parsedResponse);
+    populateJiraData(parsedResponse.issueArray, jiraIssues, types_1.Types.JiraIssue);
+    console.log(jiraIssues);
+    return jiraIssues;
 }
 exports.getJiraIssues = getJiraIssues;
-function getJiraProjects() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let jiraProjects = [];
-        const response = yield nango.triggerAction(INTEGRATION_ID_JIRA, CONNECTION_ID_JIRA, 'jira-fetch-projects');
-        const parsedResponse = JSON.parse(JSON.stringify(response));
-        console.log(parsedResponse);
-        populateJiraData(parsedResponse.projectsArray, jiraProjects, types_1.Types.JiraProject);
-        console.log(jiraProjects);
-        return jiraProjects;
-    });
+/**
+ * Function to fetch all the projects the authenticated user has
+ * @returns JiraProjectInfo[]
+ */
+async function getJiraProjects() {
+    let jiraProjects = [];
+    const response = await nango.triggerAction(INTEGRATION_ID_JIRA, CONNECTION_ID_JIRA, 'jira-fetch-projects');
+    const parsedResponse = JSON.parse(JSON.stringify(response));
+    console.log(parsedResponse);
+    populateJiraData(parsedResponse.projectsArray, jiraProjects, types_1.Types.JiraProject);
+    console.log(jiraProjects);
+    return jiraProjects;
 }
 exports.getJiraProjects = getJiraProjects;
 /**

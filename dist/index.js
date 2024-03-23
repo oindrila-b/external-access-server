@@ -18,15 +18,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -43,23 +34,22 @@ const app = (0, express_1.default)();
 /**
  * @type {number}
  */
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.use((0, cors_1.default)());
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
-app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/', async (req, res) => {
     res.status(200);
     res.send("EXTERNAL SERVER ACCESS");
-}));
-app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("HELLO");
+});
+app.get('/list/:integration?/:entity?', async (req, res) => {
     const integration = req.params.integration;
     const entity = req.params.entity;
     if (integration === 'github') {
         switch (entity) {
             case 'repository':
-                const repos = yield (0, globalService_1.getGithubRepositories)();
+                const repos = await (0, globalService_1.getGithubRepositories)();
                 if (repos !== null || repos !== undefined) {
                     res.status(200);
                     console.log(repos);
@@ -70,7 +60,7 @@ app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, 
                 }
                 break;
             case 'starred':
-                const starred = yield (0, globalService_1.getStarredRepositories)();
+                const starred = await (0, globalService_1.getStarredRepositories)();
                 if (starred !== null || starred !== undefined) {
                     res.status(200);
                     res.json(starred);
@@ -84,7 +74,7 @@ app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, 
     else if (integration === 'jira') {
         switch (entity) {
             case 'issues':
-                const issues = yield (0, globalService_1.getJiraIssues)();
+                const issues = await (0, globalService_1.getJiraIssues)();
                 if (issues !== null || issues !== undefined) {
                     res.status(200);
                     console.log(issues);
@@ -95,7 +85,7 @@ app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, 
                 }
                 break;
             case 'projects':
-                const projects = yield (0, globalService_1.getJiraProjects)();
+                const projects = await (0, globalService_1.getJiraProjects)();
                 if (projects !== null || projects !== undefined) {
                     res.status(200);
                     res.json(projects);
@@ -107,6 +97,6 @@ app.get('/list/:integration?/:entity?', (req, res) => __awaiter(void 0, void 0, 
         }
     }
     else {
-        res.send(`${integration === null || integration === void 0 ? void 0 : integration.toUpperCase()} - This integration is not supported at the moment.`);
+        res.send(`${integration?.toUpperCase()} - This integration is not supported at the moment.`);
     }
-}));
+});
