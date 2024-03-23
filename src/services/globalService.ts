@@ -81,6 +81,10 @@ export async function getStarredRepositories() : Promise<GithubStarredRepo[]> {
     return starredRepos;
 }
 
+/**
+ * Function to fetch all the issues the authenticated user has 
+ * @returns JiraIssues[]
+ */
 export async function getJiraIssues() : Promise<JiraIssueInfo[]> {
 
     let jiraIssues : JiraIssueInfo[] = [];
@@ -100,7 +104,10 @@ export async function getJiraIssues() : Promise<JiraIssueInfo[]> {
     return jiraIssues;
 }
 
-
+/**
+ * Function to fetch all the projects the authenticated user has 
+ * @returns JiraProjectInfo[]
+ */
 export async function getJiraProjects() : Promise<JiraProjectInfo[]> {
 
     let jiraProjects : JiraProjectInfo[] = [];

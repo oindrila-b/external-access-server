@@ -27,5 +27,8 @@ The server  runs on PORT `3000` locally and has the following end-point for a fr
         - `Github` :
             - `repository` - Requests containing `repository` as the entity parameter will get all the repositories associated with the authenticated user.
             - `starred` - Requests containing `starred` as the entity parameter will get all the repositories that the authenticated user has starred.
+        - `Jira` :
+            - `issues` - Requests containing `issues` as the entity parameter will get all the issues associated with the authenticated user.
+            - `projects` - Requests containing `projects` as the entity parameter will get all the projects that the authenticated user has starred.    
 
 

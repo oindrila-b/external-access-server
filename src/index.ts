@@ -13,7 +13,7 @@ const app = express();
 /**
  * @type {number}
  */
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT 
 
 app.use(cors());
 
@@ -31,7 +31,6 @@ app.get('/', async (req, res) => {
 
 
 app.get('/list/:integration?/:entity?', async (req, res) => {
-    console.log("HELLO")
     const integration = req.params.integration;
     const entity = req.params.entity;
 
