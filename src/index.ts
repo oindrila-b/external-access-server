@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-import { getGithubRepositories, getJiraIssues, getJiraProjects, getStarredRepositories } from './services/globalService';
+import { getCommitsForRepository, getGithubRepositories, getJiraIssues, getJiraProjects, getStarredRepositories } from './services/globalService';
 
 dotenv.config()
 
@@ -39,7 +39,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                 const repos = await getGithubRepositories();
                 if (repos !== null || repos !== undefined) {
                     res.status(200)
-                    console.log(repos)
+                   // console.log(repos)
                     res.json(repos)
                 } else {
                     res.send(`Cannot fetch data for ${entity}`)
@@ -84,3 +84,9 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
     }
 })
 
+app.get('/commits/:repository', async (req, res) => {
+    console.log(req.params.repository)
+    const data = await getCommitsForRepository(req.params.repository);
+    console.log(data)
+    res.json(data)
+})

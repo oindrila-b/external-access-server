@@ -52,7 +52,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                 const repos = await (0, globalService_1.getGithubRepositories)();
                 if (repos !== null || repos !== undefined) {
                     res.status(200);
-                    console.log(repos);
+                    // console.log(repos)
                     res.json(repos);
                 }
                 else {
@@ -99,4 +99,10 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
     else {
         res.send(`${integration?.toUpperCase()} - This integration is not supported at the moment.`);
     }
+});
+app.get('/commits/:repository', async (req, res) => {
+    console.log(req.params.repository);
+    const data = await (0, globalService_1.getCommitsForRepository)(req.params.repository);
+    console.log(data);
+    res.json(data);
 });

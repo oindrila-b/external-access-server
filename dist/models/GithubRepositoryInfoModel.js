@@ -10,11 +10,13 @@ class GithubRepoInfo {
      * @param id {string} - Represents the id of the repository
      * @param name {string} - Represents the name of the repository
      * @param url {string} - Represents the url of the repository
+     * @param owner {string} - Represents the owner of the repository
      */
-    constructor(id, name, url) {
+    constructor(id, name, url, owner) {
         this._id = id;
         this._name = name;
         this._url = url;
+        this._owner = owner;
     }
     /**
      * Returns the id of the repository
@@ -28,5 +30,6 @@ class GithubRepoInfo {
      * Returns the url of the repository
      */
     get url() { return this._url; }
+    get owner() { return this._owner; }
 }
 exports.GithubRepoInfo = GithubRepoInfo;
