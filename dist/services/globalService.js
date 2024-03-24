@@ -144,10 +144,16 @@ async function getCommitsForRepository(repositoryName) {
         }
     });
     const data = await fetchedCommits.json();
-    console.log(data);
-    populateCommitModels(data, commits);
-    console.log(commits);
-    return commits;
+    if (data.message) {
+        console.log(data.message);
+        return "No Repository Found";
+    }
+    else {
+        console.log(data);
+        populateCommitModels(data, commits);
+        console.log(commits);
+        return commits;
+    }
 }
 exports.getCommitsForRepository = getCommitsForRepository;
 /**

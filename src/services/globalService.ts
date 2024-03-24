@@ -169,31 +169,30 @@ export async function getCommitsForRepository(repositoryName:string): Promise<st
         return "Required information missing"
     }
 
-   
-    try{
-       const fetchedCommits = await fetch(`${COMMIT_REQUEST_ENDPOINT}${githubUser}/${repositoryName}/commits`, {
-            method: 'GET',
-            headers:{
-                'Accept': 'application/vnd.github+json',
-                'Authorization': `Bearer ${token}`,
-                'X-GitHub-Api-Version': '2022-11-28'
-            }
-        })
+    const fetchedCommits = await fetch(`${COMMIT_REQUEST_ENDPOINT}${githubUser}/${repositoryName}/commits`, {
+        method: 'GET',
+        headers:{
+            'Accept': 'application/vnd.github+json',
+            'Authorization': `Bearer ${token}`,
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    })
 
-        const data = await fetchedCommits.json();
 
-   
+    const data = await fetchedCommits.json();
 
-        console.log(data)
-    
-        populateCommitModels(data, commits)
-        console.log(commits)
-        return commits;
-    } catch(err) {
-        console.log(err)
-        return commits;
-    }
-   
+   if(data.message){
+    console.log(data.message);
+    return "No Repository Found"
+   } else {
+
+    console.log(data)
+
+    populateCommitModels(data, commits)
+    console.log(commits)
+    return commits;
+   }
+
 }
 
 

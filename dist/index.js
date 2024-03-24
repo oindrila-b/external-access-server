@@ -56,6 +56,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.json(repos);
                 }
                 else {
+                    res.status(404);
                     res.send(`Cannot fetch data for ${entity}`);
                 }
                 break;
@@ -66,6 +67,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.json(starred);
                 }
                 else {
+                    res.status(404);
                     res.send(`Cannot fetch data for ${entity}`);
                 }
                 break;
@@ -81,6 +83,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.json(issues);
                 }
                 else {
+                    res.status(404);
                     res.send(`Cannot fetch data for ${entity}`);
                 }
                 break;
@@ -91,12 +94,14 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.json(projects);
                 }
                 else {
+                    res.status(404);
                     res.send(`Cannot fetch data for ${entity}`);
                 }
                 break;
         }
     }
     else {
+        res.status(404);
         res.send(`${integration?.toUpperCase()} - This integration is not supported at the moment.`);
     }
 });
@@ -104,10 +109,12 @@ app.get('/commits/:repository', async (req, res) => {
     console.log(req.params.repository);
     const data = await (0, globalService_1.getCommitsForRepository)(req.params.repository);
     console.log(data);
-    if (data === undefined || data === null) {
+    if (data.length === 0) {
+        res.status(404);
         res.json('Repository not found');
     }
     else {
+        res.status(200);
         res.json(data);
     }
 });
