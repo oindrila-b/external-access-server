@@ -180,7 +180,7 @@ function populateJiraData(parsedResponse, repositoriesArray, types) {
 }
 function populateCommitModels(parsedResponse, commitsArray) {
     parsedResponse.forEach((response) => {
-        let commit = new CommitModel_1.CommitModel(response.commit.message, response.author.login, response.html_url);
+        let commit = new CommitModel_1.CommitModel(response.commit.message, response.author.login, response.html_url, response.sha);
         console.log(commit);
         commitsArray.push(commit);
     });

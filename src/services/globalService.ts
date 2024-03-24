@@ -169,22 +169,31 @@ export async function getCommitsForRepository(repositoryName:string): Promise<st
         return "Required information missing"
     }
 
-    const fetchedCommits = await fetch(`${COMMIT_REQUEST_ENDPOINT}${githubUser}/${repositoryName}/commits`, {
-        method: 'GET',
-        headers:{
-            'Accept': 'application/vnd.github+json',
-            'Authorization': `Bearer ${token}`,
-            'X-GitHub-Api-Version': '2022-11-28'
-        }
-    })
+   
+    try{
+       const fetchedCommits = await fetch(`${COMMIT_REQUEST_ENDPOINT}${githubUser}/${repositoryName}/commits`, {
+            method: 'GET',
+            headers:{
+                'Accept': 'application/vnd.github+json',
+                'Authorization': `Bearer ${token}`,
+                'X-GitHub-Api-Version': '2022-11-28'
+            }
+        })
 
-    const data = await fetchedCommits.json();
+        const data = await fetchedCommits.json();
 
-    console.log(data)
+   
 
-    populateCommitModels(data, commits)
-    console.log(commits)
-    return commits;
+        console.log(data)
+    
+        populateCommitModels(data, commits)
+        console.log(commits)
+        return commits;
+    } catch(err) {
+        console.log(err)
+        return commits;
+    }
+   
 }
 
 
@@ -223,7 +232,7 @@ function populateJiraData(parsedResponse:any, repositoriesArray:any[], types: Ty
 
 function populateCommitModels(parsedResponse:any, commitsArray:any[]) {
     parsedResponse.forEach((response: any) => {
-        let commit = new CommitModel(response.commit.message, response.author.login, response.html_url)
+        let commit = new CommitModel(response.commit.message, response.author.login, response.html_url, response.sha)
         console.log(commit)
         commitsArray.push(commit)
     })

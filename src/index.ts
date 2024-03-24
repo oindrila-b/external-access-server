@@ -42,6 +42,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                    // console.log(repos)
                     res.json(repos)
                 } else {
+                    res.status(404)
                     res.send(`Cannot fetch data for ${entity}`)
                 }
                 break;
@@ -51,6 +52,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.status(200)
                     res.json(starred)
                 } else {
+                    res.status(404)
                     res.send(`Cannot fetch data for ${entity}`)
                 }
                 break;
@@ -65,6 +67,7 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     console.log(issues)
                     res.json(issues)
                 } else {
+                    res.status(404)
                     res.send(`Cannot fetch data for ${entity}`)
                 }
                 break;
@@ -74,12 +77,14 @@ app.get('/list/:integration?/:entity?', async (req, res) => {
                     res.status(200)
                     res.json(projects)
                 } else {
+                    res.status(404)
                     res.send(`Cannot fetch data for ${entity}`)
                 }
                 break;
         }
     }
     else {
+        res.status(404)
         res.send(`${integration?.toUpperCase()} - This integration is not supported at the moment.`)
     }
 })
@@ -88,5 +93,11 @@ app.get('/commits/:repository', async (req, res) => {
     console.log(req.params.repository)
     const data = await getCommitsForRepository(req.params.repository);
     console.log(data)
-    res.json(data)
+    if(data.length === 0) {
+        res.status(404)
+        res.json('Repository not found')
+    } else{
+        res.status(200)
+        res.json(data)
+    }
 })

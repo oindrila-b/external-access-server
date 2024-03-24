@@ -104,5 +104,10 @@ app.get('/commits/:repository', async (req, res) => {
     console.log(req.params.repository);
     const data = await (0, globalService_1.getCommitsForRepository)(req.params.repository);
     console.log(data);
-    res.json(data);
+    if (data === undefined || data === null) {
+        res.json('Repository not found');
+    }
+    else {
+        res.json(data);
+    }
 });
