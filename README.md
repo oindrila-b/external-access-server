@@ -9,6 +9,7 @@ This is the server side of the connect extension. This server is built using nod
  - Dotenv
 
 The client side of the project can be found [here](https://github.com/oindrila-b/connect-extension)
+
 ## About the server:
 The server uses `nango api integration` to connect to external resources like Github, Jira, etc on behalf of the user and fetch their resources.
 
@@ -16,7 +17,9 @@ Nango - Nango is a single API to interact with all other external APIs.
 
 The server is built in typescript and the compiled javascript code is generated in the `./dist` folder
 
-#### The server runs on port `5000`
+#### The server runs on port `5000` locally
+
+#### The server is hosted at `https://external-access-server.onrender.com`
 
 ## Features :
 The server  runs on PORT `3000` locally and has the following end-point for a frontend application:
