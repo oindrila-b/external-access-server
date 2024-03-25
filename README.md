@@ -17,7 +17,7 @@ Nango - Nango is a single API to interact with all other external APIs.
 ## Features :
 The server  runs on PORT `3000` locally and has the following end-point for a frontend application:
 
-- `'/list/:integration?/:entity?'` - This is the one and only endpoint for the server. 
+- `'/list/:integration?/:entity?'` - This is the endpoint for the server that handles fetching resources from github / jira. 
  - The server logically maps the required methods internally using the `integration` and `entity` values.
     - Integration Values :
         - `github`  - All the requests containing `github` as the integration parameter will be accessing `github` resources.
@@ -31,4 +31,4 @@ The server  runs on PORT `3000` locally and has the following end-point for a fr
             - `issues` - Requests containing `issues` as the entity parameter will get all the issues associated with the authenticated user.
             - `projects` - Requests containing `projects` as the entity parameter will get all the projects that the authenticated user has starred.    
 
-
+ - `/commits/:repository` -  This end point is for when the user wants to get commits for a specific repository. The repository parameter takes in a repsoitory name that belongs to the authenticated user and fetches their data'
