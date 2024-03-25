@@ -22,7 +22,7 @@ The server is built in typescript and the compiled javascript code is generated 
 #### The server is hosted at `https://external-access-server.onrender.com`
 
 ## Features :
-The server  runs on PORT `3000` locally and has the following end-point for a frontend application:
+The server  runs on PORT `5000` locally and has the following end-point for a frontend application:
 
 - `'/list/:integration?/:entity?'` - This is the endpoint for the server that handles fetching resources from github / jira. 
  - The server logically maps the required methods internally using the `integration` and `entity` values.
